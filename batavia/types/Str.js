@@ -180,11 +180,60 @@ String.prototype.__mul__ = function(other) {
 };
 
 String.prototype.__mod__ = function(other) {
-    if (batavia.isinstance(other, batavia.types.Tuple)) {
-        return batavia._substitute(this, other);
-    } else {
-        return batavia._substitute(this, [other]);
+
+    // scenario 1: return `this`
+
+    // scenario 2: possible string formatting
+
+    //scenario 3: error
+
+
+    var matches = this.valueOf().match(/%\+?\.?(\d*f|s|d)/g);
+
+    if(matches == null){
+        //no formatting matches
+
+
     }
+
+
+//    if (batavia.isinstance(other, [
+//        batavia.types.Bytearray, batavia.types.Bytes, batavia.types.Dict, batavia.types.List,
+//        batavia.types.Range, batavia.types.NoneType
+//    ])){
+//
+//        // if `this` has markers for string formatting, let that happen.
+//        var matches = this.valueOf().match(/%\+?\.?(\d*f|s|d)/g)
+//        if(matches !== null){
+//
+//            //there can only be one marker to do an interpolation
+//            if(matches.length == 1){
+//                var marker = matches[0];
+//                return this.valueOf().replace(marker, other.valueOf())
+//            } else {
+//                throw new batavia.builtins.TypeError("not enough arguments for format string")
+//            }
+//
+//        } else {
+//            //otherwise, return value of this.
+//            return this.valueOf()
+//        }
+//
+//    } else {
+//        throw new batavia.builtins.TypeError("not all arguments converted during string formatting")
+//    }
+
+//    if (batavia.isinstance(other, [
+//            batavia.types.Bool, batavia.types.Type, batavia.types.Complex, batavia.types.Float,
+//            batavia.types.Int, batavia.types.NoneType, batavia.types.NotImplementedType, batavia.types.Set,
+//            batavia.types.Slice, batavia.types.Str, batavia.types.Tuple
+//        ])){
+//            throw new batavia.builtins.TypeError("not all arguments converted during string formatting")
+//        } else if (batavia.isinstance(other, [
+//            batavia.types.
+//        ])) {
+//
+//        }
 };
 
 String.prototype.__add__ = function(other) {
