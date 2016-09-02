@@ -159,7 +159,7 @@ class BinaryStrOperationTests(BinaryOperationTestCase, TranspileTestCase):
         'test_lt_set',
         'test_lt_slice',
 
-        'test_modulo_bool',
+        # 'test_modulo_bool',
         'test_modulo_bytearray',
         'test_modulo_bytes',
         'test_modulo_class',
