@@ -88,18 +88,18 @@ batavia.modules.time.struct_time.prototype.__len__ = function(){
     return batavia.types.Int(9);
 }
 
+
 batavia.modules.time.struct_time.prototype.__add__ = function(other){
 
     if (batavia.isinstance(other, [batavia.types.Tuple])){
         result = new batavia.types.Tuple();
 
-        for (i=0; i < 10; i++){
-            console.log(this[i]);
+        for (i=0; i < 9; i++){
             result.push(this[i]);
         }
 
-        for (i=0; i < other.length; i++){
-            result.push(other[i]);
+        for (j=0; j < other.length; j++){
+            result.push(other[j]);
         }
 
         return result;
