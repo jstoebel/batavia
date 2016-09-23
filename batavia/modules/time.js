@@ -1,5 +1,7 @@
 
 batavia.modules.time = {
+
+
     _startTime: new Date().getTime(),
     clock: function() {
         return new batavia.types.Float(new Date().getTime() - batavia.modules.time._startTime);
@@ -23,11 +25,13 @@ batavia.modules.time = {
         }
     }
 
-    struct_time: function(sequence){
 
+}
+
+batavia.modules.time.struct_time = function (sequence) {
     /*
         copied from https://docs.python.org/2/library/time.html#time.struct_time
-        DOES THIS NEED ATTRIBUTION?
+        WHAT ATTRIBUTION DOES THIS NEED?
 
         0 	tm_year 	(for example, 1993)
         1 	tm_mon 	    range [1, 12]
@@ -40,29 +44,68 @@ batavia.modules.time = {
         8 	tm_isdst 	0, 1 or -1; see below
     */
 
-        if (batavia.isinstance(sequence, [batavia.types.Bytearray, batavia.types.Bytes, batavia.types.Dict,
-            batavia.types.FrozenSet, batavia.types.List, batavia.types.Range, batavia.types.Set, batavia.types.Str
-            batavia.types.Tuple,
-            ])){
 
-            this.tm_year = sequence[0]
-            this.tm_mon = sequence[1]
-            this.tm_mday = sequence[2]
-            this.tm_hour = sequence[3]
-            this.tm_min = sequence[4]
-            this.tm_sec = sequence[5]
-            this.tm_wday = sequence[6]
-            this.tm_yday = sequence[7]
-            this.tm_isdst = sequence[8]
+    if (batavia.isinstance(sequence, [batavia.types.Bytearray, batavia.types.Bytes, batavia.types.Dict,
+        batavia.types.FrozenSet, batavia.types.List, batavia.types.Range, batavia.types.Set, batavia.types.Str,
+        batavia.types.Tuple]
+        )){
 
-
-
-        } else {
-            //some other, unacceptable type
-            throw new batavia.builtins.TypeError("constructor requires a sequence")
-
+        if (sequence.length !== 9){
+            throw new batavia.builtins.TypeError(`time.struct_time() takes an at least 9-sequence (${sequence.length}-sequence given)`);
         }
 
-    },
+        // TODO: complete this block
+        this.n_fields = 9;
+        this.n_unnamed_fields = 9;
+        this.n_sequence_fields = 9;
 
-};
+
+        this.push.apply(this, sequence);
+
+        var attrs = [ "tm_year", "tm_mon", "tm_mday", "tm_hour", "tm_min", "tm_sec", "tm_wday", "tm_yday", "tm_isdst"]
+
+        for (var i=0; i<attrs.length; i++){
+            this[attrs[i]] = sequence[i];
+        }
+
+    } else {
+        //some other, unacceptable type
+        throw new batavia.builtins.TypeError("constructor requires a sequence");
+    }
+}
+
+batavia.modules.time.struct_time.prototype = new batavia.types.Tuple();
+
+batavia.modules.time.struct_time.prototype.__str__ = function(){
+    return `time.struct_time(tm_year=${this.tm_year}, tm_mon=${this.tm_mon}, tm_mday=${this.tm_mday}, tm_hour=${this.tm_hour}, tm_min=${this.tm_min}, tm_sec=${this.tm_sec}, tm_wday=${this.tm_wday}, tm_yday=${this.tm_yday}, tm_isdst=${this.tm_isdst})`
+}
+
+batavia.modules.time.struct_time.prototype.__repr__ = function(){
+    return this.__str__();
+}
+
+batavia.modules.time.struct_time.prototype.__len__ = function(){
+    return batavia.types.Int(9);
+}
+
+batavia.modules.time.struct_time.prototype.__add__ = function(other){
+
+    if (batavia.isinstance(other, [batavia.types.Tuple])){
+        result = new batavia.types.Tuple();
+
+        for (i=0; i < 10; i++){
+            console.log(this[i]);
+            result.push(this[i]);
+        }
+
+        for (i=0; i < other.length; i++){
+            result.push(other[i]);
+        }
+
+        return result;
+
+    } else {
+        throw new batavia.builtins.TypeError("can only concatenate tuple (not " + batavia.type_name(other) + ") to tuple")
+    }
+
+}
