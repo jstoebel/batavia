@@ -1,7 +1,7 @@
 from ..utils import TranspileTestCase
 
 import unittest
-
+import time
 
 class TimeTests(TranspileTestCase):
     @unittest.expectedFailure
@@ -33,4 +33,27 @@ class TimeTests(TranspileTestCase):
             except ValueError as err:
                 print(err)
             print('Done.')
+            """)
+
+
+    def test_struct_time_valid(self):
+        # valid construction
+
+        seed = list(range(1, 10))
+        sequences = (
+            bytearray(seed),
+            bytes(seed),
+            dict(zip(seed, seed)),
+            frozenset(seed),
+            seed,
+            range(1, 10),
+            set(seed),
+            ''.join([str(i) for i in seed]),
+            tuple(seed)
+        )
+
+        for seq in sequences:
+            st = time.struct_time(seq)
+            self.assertCodeExecution("""
+            print('>>>
             """)
