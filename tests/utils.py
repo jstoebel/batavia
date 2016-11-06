@@ -451,10 +451,10 @@ def cleanse_python(input, substitutions):
 
 class TranspileTestCase(TestCase):
 
-    def setUp():
+    def setUp(self):
         gc.enable()
 
-    def tearDown():
+    def tearDown(self):
         gc.collect()
 
     def assertCodeExecution(
@@ -658,10 +658,10 @@ class TranspileTestCase(TestCase):
 
 class NotImplementedToExpectedFailure:
 
-    def setUp():
+    def setUp(self):
         gc.enable()
 
-    def tearDown():
+    def tearDown(self):
         gc.collect()
 
     def run(self, result=None):
