@@ -26,7 +26,6 @@ batavia.modules.time = {
 batavia.modules.time.struct_time = function (sequence) {
     /*
         copied from https://docs.python.org/3/library/time.html#time.struct_time
-
         Index 	Attribute 	Values
         0 	    tm_year 	(for example, 1993)
         1 	    tm_mon 	    range [1, 12]
@@ -204,7 +203,7 @@ batavia.modules.time.localtime = function(seconds){
     if (arguments.length > 1){
         throw new batavia.builtins.TypeError("localtime() takes at most 1 argument (" + arguments.length + " given)")
     }
-f
+
     if (arguments.length == 1) {
         // catching bad types
         if (batavia.isinstance(seconds, [batavia.types.Complex])){

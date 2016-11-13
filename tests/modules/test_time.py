@@ -11,13 +11,10 @@ class TimeTests(TranspileTestCase):
     def test_time(self):
         self.assertCodeExecution("""
             import time
-
             # Demonstrate that we're getting the same type...
             print(type(time.time()))
-
             # ...and that type is infact a float.
             print(isinstance(time.time(), float))
-
             print('Done.')
             """)
 
@@ -335,7 +332,6 @@ class TimeTests(TranspileTestCase):
     def test_mktime_too_early(self):
         """
         tests OverflowError on dates earlier than an arbitrarily defined date 1900-01-01
-
         Because the CPython implementation of mktime varies across platforms, this likely won't match behavior
         regarding the smallest possible year that can be entered.
         """
@@ -369,8 +365,8 @@ class TimeTests(TranspileTestCase):
         source: http://ecma-international.org/ecma-262/5.1/#sec-15.9.1.1
         """
 
-        hour = 24 + localtime().tm_hour - gmtime().tm_hour
-
+        hour = 24 + localtime().tm_hour - gmtime().tm_hour + 1
+        print(hour)
         seed = [275760, 9, 12, hour, 0, 0, 0, 0, 1] # the max date that can be computed.
         set_up = adjust("""
         print('>>> import time')
